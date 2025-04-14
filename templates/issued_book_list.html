@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="list-container">
+        <h2>Issued Book List</h2>
+        {% if issued_books %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Book ID</th>
+                        <th>Title</th>
+                        <th>Student Name</th>
+                        <th>Student ID</th>
+                        <th>Issue Date</th>
+                        <th>Return Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for book in issued_books %}
+                        <tr>
+                            <td>{{ book.book_id }}</td>
+                            <td>{{ book.title }}</td>
+                            <td>{{ book.student_name }}</td>
+                            <td>{{ book.student_id }}</td>
+                            <td>{{ book.issue_date }}</td>
+                            <td>{{ book.return_date }}</td>
+                            <td>
+                                {% if book.returned %}
+                                    Returned
+                                {% else %}
+                                    Issued
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if not book.returned %}
+                                    <a href="{{ url_for('return_book', index=loop.index0) }}" class="btn return-btn">Return</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No books have been issued yet.</p>
+        {% endif %}
+    </div>
+{% endblock %}
