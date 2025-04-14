@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Remove Book</h2>
+    <form method="POST">
+        <div class="form-group">
+            <label for="book_id">Book ID:</label>
+            <input type="text" id="book_id" name="book_id" required>
+        </div>
+        <button type="submit" class="btn danger">Remove Book</button>
+    </form>
+    
+    <div class="book-list" style="margin-top: 2rem;">
+        <h3>Current Books</h3>
+        {% if books %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Book ID</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Available</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for book in books %}
+                        <tr>
+                            <td>{{ book.book_id }}</td>
+                            <td>{{ book.title }}</td>
+                            <td>{{ book.author }}</td>
+                            <td>{{ book.quantity }}</td>
+                            <td>
+                                <a href="{{ url_for('delete_book', book_id=book.book_id) }}" 
+                                   class="btn danger"
+                                   onclick="return confirm('Are you sure you want to delete this book?')">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No books available in the library.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
