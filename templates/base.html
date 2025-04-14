@@ -9,13 +9,14 @@
 <body>
     <header>
         <h1>Library Management System</h1>
-        <nav>
-            <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('add_book') }}">Add Book</a>
-            <a href="{{ url_for('book_list') }}">Book List</a>
-            <a href="{{ url_for('issue_book') }}">Issue Book</a>
-            <a href="{{ url_for('issued_book_list') }}">Issued Books</a>
-        </nav>
+       <nav>
+    <a href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('add_book') }}">Add Book</a>
+    <a href="{{ url_for('remove_book') }}">Remove Book</a>
+    <a href="{{ url_for('book_list') }}">Book List</a>
+    <a href="{{ url_for('issue_book') }}">Issue Book</a>
+    <a href="{{ url_for('issued_book_list') }}">Issued Books</a>
+</nav>
     </header>
     
     <main>
