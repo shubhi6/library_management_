@@ -135,7 +135,57 @@ def issue_book():
 def issued_book_list():
     issued_books = read_json('issued_books.json')
     return render_template('issued_book_list.html', issued_books=issued_books)
+# Add this new route after your existing routes
+@app.route('/remove_book', methods=['GET', 'POST'])
+def remove_book():
+    if request.method == 'POST':
+        book_id = request.form.get('book_id', '').strip()
+        
+        if not book_id:
+            flash('Please enter a book ID', 'error')
+            return redirect(url_for('remove_book'))
+        
+        books = read_json('books.json')
+        issued_books = read_json('issued_books.json')
+        
+        # Check if book is currently issued
+        is_issued = any(book['book_id'] == book_id and not book['returned'] 
+                     for book in issued_books)
+        
+        if is_issued:
+            flash('Cannot remove book - it is currently issued to a student', 'error')
+            return redirect(url_for('remove_book'))
+        
+        # Remove the book
+        updated_books = [book for book in books if book['book_id'] != book_id]
+        
+        if len(updated_books) == len(books):
+            flash('Book not found', 'error')
+        else:
+            write_json('books.json', updated_books)
+            flash('Book removed successfully!', 'success')
+        
+        return redirect(url_for('book_list'))
+    
+    return render_template('remove_book.html')
 
+@app.route('/delete_book/<book_id>')
+def delete_book(book_id):
+    books = read_json('books.json')
+    issued_books = read_json('issued_books.json')
+    
+    # Check if book is issued
+    is_issued = any(book['book_id'] == book_id and not book['returned'] 
+                 for book in issued_books)
+    
+    if is_issued:
+        flash('Cannot delete book - it is currently issued to a student', 'error')
+    else:
+        updated_books = [book for book in books if book['book_id'] != book_id]
+        write_json('books.json', updated_books)
+        flash('Book deleted successfully!', 'success')
+    
+    return redirect(url_for('book_list'))
 @app.route('/return_book/<int:index>')
 def return_book(index):
     issued_books = read_json('issued_books.json')
