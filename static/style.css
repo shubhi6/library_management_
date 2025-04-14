@@ -112,7 +112,15 @@
   .form-group {
     margin-bottom: 1.5rem;
   }
-  
+  .btn.danger {
+    background: #d63031;
+}
+
+.btn.danger:hover {
+    background: #b71c1c;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(214, 48, 49, 0.3);
+}
   .form-group label {
     display: block;
     margin-bottom: 0.6rem;
