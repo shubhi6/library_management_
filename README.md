@@ -78,7 +78,7 @@ A modern, lightweight **Library Management System** built with Flask and JSON st
 
 Easily deploy to Render with one-click:
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)]([https://render.com/deploy](https://library-management-e471.onrender.com/))
+[![Deploy to Render]([https://render.com/deploy](https://library-management-e471.onrender.com/))]
 
 ## 📂 Project Structure
 
